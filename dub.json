@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"mauritsmlt"
+	],
+	"copyright": "Copyright © 2020, mauritsmlt",
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "advent"
+}
