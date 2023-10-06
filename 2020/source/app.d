@@ -1,7 +1,7 @@
-import day9;
+import day10;
 import std.stdio;
 
 void main()
 {
-	p2(File("9.txt"));
+	p2(File("10.txt"));
 }
