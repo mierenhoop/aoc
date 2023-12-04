@@ -23,11 +23,18 @@ for card, win, match in io.open"day4.txt"\read"*a"\gmatch"(%d+): (.-) | (.-)\n"
 
 print sum
 
+cache = {}
+
 sss = 0
 add = (card) ->
   sss += 1
-  for to in *pp[card]
-    add(to)
+  if cache[card]
+    sss += cache[card]
+  else
+    b4 = sss
+    for to in *pp[card]
+      add(to)
+    cache[card] = sss - b4
 
 for i = 1, #pp
   add(i)
