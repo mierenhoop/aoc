@@ -1,21 +1,21 @@
-require"moon.all"
-
 input = io.open"day8.txt"\read"*a"
 
-dirs = [a for a in input\match"[RL]+"\gmatch"."]
+dirs = input\match"[RL]+"
 
 nodes = {fro, {:L, :R} for fro, L, R in input\gmatch"(%w+) = %((%w+), (%w+)%)"}
 
-fin = "ZZZ"
-
-walk = () ->
+walk = (cur, fin) ->
   steps = 0
-  cur = "AAA"
   while true
-    for dir in *dirs
+    for dir in dirs\gmatch"."
       cur = nodes[cur][dir]
       steps += 1
-      return steps if cur == fin
+      return steps if cur\match fin
 
-print walk!
+print walk "AAA", "ZZZ"
 
+a=1
+for start in *[n for n in pairs nodes when n\match"Z$"]
+  a *= walk(start, "Z$") / #dirs
+
+print a*#dirs
