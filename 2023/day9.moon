@@ -4,22 +4,22 @@ iter = (nums) ->
   new = {}
   for i = 1, #nums-1
     new[i] = nums[i+1] - nums[i]
-    if not n
-      n = new[i]
+    n or= new[i]
     if new[i] ~= n
       same = false
-  --  io.write(new[i] .. " ")
-  --print""
 
   if not same
-    n = iter(new)
-    return new[#new]+n
+    p, n = iter(new)
+    new[1] - p, new[#new]+n
   else
-    return n
+    n, n
 
-sum=0
+sump, sumn = 0, 0
 for line in io.open"day9.txt"\lines!
   nums = [tonumber n for n in line\gmatch"%-?%d+"]
-  sum += nums[#nums] + iter(nums)
+  p, n = iter(nums)
+  sump += nums[1] - p
+  sumn += nums[#nums] + n
 
-print sum
+print sumn
+print sump
