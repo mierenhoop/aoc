@@ -62,10 +62,13 @@ turnmap = {
 turns = 0
 
 path = {}
+pp = {}
 
 i=0
 iter = (pos, curd) ->
   path[pos] = 1
+  table.insert pp, pos%w
+  table.insert pp, math.floor(pos/w)
   for d in *(curd and {curd} or {-w, -1, 1, w})
     nxtpos = pos+d
     nxtpipe = map[nxtpos]
@@ -124,5 +127,16 @@ iter animal
 --  for x = 0, w-1
 --    io.write(reached[y*w+x] and "#" or ".")
 --  print""
+
+e = io.open"day10-love/main.lua"\read"*a"
+e = e\gsub("%-%-a.-%-%-b", "--a
+w,h=#{w},#{h}
+vertices={#{table.concat(pp,",")}}
+--b")
+io.open("day10-love/main.lua", "w")\write(e)
+
+print "run `love day10-love` for part 2"
+--io.write "#{v}," for v in *pp
+--print""
 
 --print #[a for a in pairs reached]
