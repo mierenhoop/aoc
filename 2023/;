@@ -1,0 +1,62 @@
+require"moon.all"
+
+--map = for line in io.open"day10.txt"\lines!
+--  [col for col in line\gmatch"."]
+--
+--animal = nil
+--for y, row in ipairs map
+--  for x, col in ipairs row
+--    if col == "S"
+--      animal = {x, y}
+--
+--pipemap = {
+--  "1;0": {"-", "J", "7"},
+--  "-1;0": {"-", "L", "F"},
+--  "0;1": {"|", "L", "J"},
+--  "0;-1": {"|", "7", "F"},
+--}
+--
+--edges = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
+--
+--nxt = (animal, prev) ->
+--  for {x, y} in *edges
+--    nx, ny = animal[1]+x, animal[2]+y
+--    if nx < 1 or #map[1] < nx or ny < 1 or #map < ny
+--      continue
+--    nn = "#{nx};#{ny}"
+--    for pipe in *pipemap["#{x};#{y}"]
+--      if map[ny][nx] == pipe and pipe ~= prev
+--        print pipe
+--        return nxt({nx, ny}, pipe)
+--
+--nxt animal
+
+
+input = io.open"day10.txt"\read"*a"
+w = input\find"\n" - 1
+input = input\gsub "%s", ""
+map = {x-1, input\sub(x,x) for x = 1, #input}
+h = #input/w
+
+animal = nil
+for i = 0, w*h-1
+  if map[i] == "S"
+    animal = i
+    break
+print animal
+
+pipemap = {
+  [1]: {"-":1, "J":1, "7":1},
+  [-1]: {"-":1, "L":1, "F":1},
+  [w]: {"|":1, "L":1, "J":1},
+  [-w]: {"|":1, "7":1, "F":1},
+}
+
+
+iter = (pos, prev) ->
+  for d in *{-w, -1, 1, w}
+    nxtpos = pos+d
+    nxtpipe = map[nxtpos]
+    if pipemap[d][nxtpipe] and nxtpipe
+
+iter animal
