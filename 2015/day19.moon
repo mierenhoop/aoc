@@ -1,5 +1,3 @@
-require"moon.all"
-
 inp = io.open"day19.txt"\read"*a"
 
 --a = "HOHOHO"
@@ -32,6 +30,8 @@ for i = 1, #a
 
 s = 0
 s += 1 for _ in pairs all
+
+print s
 
 uu = {}
 for k, v in pairs oo
@@ -111,7 +111,7 @@ while not frontier\empty!
       new_cost = cost_so_far[current] + 1
       if not cost_so_far[n] or new_cost < cost_so_far[n]
         cost_so_far[n] = new_cost
-        priority = new_cost + #n-1
+        priority = new_cost + #n-2
         frontier\put(n, priority)
         came_from[n] = current
 

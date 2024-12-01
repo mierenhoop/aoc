@@ -1,10 +1,11 @@
 require"moon.all"
 
-combs = (l, i, ns) ->
+combs = (l, i, ns, a) ->
   n = table.remove(ns, 1)
+  a-=n
   sum = 0
 
-  ni = l\find "#", i
+  ni = l\find "#", i, true
   while true
     i = l\find ("[#?]"\rep(n).."[^#]"), i
 
@@ -16,16 +17,33 @@ combs = (l, i, ns) ->
     i+=1
 
     if #ns > 0
-      sum += combs(l, n+i, [n for n in *ns])
+      --if #l-i >= a
+      sum += combs(l, n+i, [n for n in *ns], a)
     else
-      if not l\find "#", i+n
+      if not l\find "#", i+n, true
         sum+=1
   sum
 
 
 sum=0
 for line in io.open"day12.txt"\lines!
-  s = combs line, 1, [tonumber num for num in line\gmatch"%d+"]
+  ns = [tonumber num for num in line\gmatch"%d+"]
+  
+  line = line\match"[%.?#]+"
+
+  line = line\rep(5)
+  l = #ns
+  for o = 1, 4
+    for i = 1, l
+      table.insert ns, ns[i]
+
+  a=0
+  a+=n for n in *ns
+
+  print line
+  p ns
+
+  s = combs (line.." "), 1, ns, a
   print s
   sum += s
 
