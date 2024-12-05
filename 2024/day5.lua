@@ -14,6 +14,7 @@ for a, b in first:gmatch"(%d+)|(%d+)" do
 end
 
 local sum = 0
+local sum2 = 0
 for line in second:gmatch"[^\n]+" do
   local ok = true
   local tt = {}
@@ -21,16 +22,21 @@ for line in second:gmatch"[^\n]+" do
     v = tonumber(v)
     table.insert(tt, v)
   end
-  local ok = true
+  local isok = true
   for i = #tt, 1, -1 do
     for j = i-1,1,-1 do
       if not r[tt[i]] or not r[tt[i]][tt[j]] then
-        ok = false
+        isok = false
+        tt[i], tt[j] = tt[j], tt[i]
       end
     end
   end
-  if ok then
+  if isok then
     sum = sum + (tt[#tt//2+1])
+  else
+    sum2 = sum2 + (tt[#tt//2+1])
+
   end
 end
 print(sum)
+print(sum2)
