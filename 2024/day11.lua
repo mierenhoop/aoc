@@ -1,29 +1,35 @@
-local m ={}
-local function iter(n, i)
-  m[i]=m[i]or{}
-  table.insert(m[i],n)
-  if i < 1 then
-    return 1
-  end
-  if #n == 1 and n == "0" then return iter("1", i-1) end
-  if #n % 2 == 0 then
-    return iter(n:sub(1,#n/2),i-1)+iter(tostring(tonumber(n:sub(#n/2+1))),i-1)
-  else
-    n = tostring(tonumber(n)*2024)
-    return iter(n, i-1)
-  end
-end
+-- only works with luajit for 64 bit numbers
 
-
-local sum = 0
+local tt = {}
 for n in io.open"day11.txt":read"*a":gmatch"%d+" do
-  sum=sum+iter(n, 25)
+  tt[n]=(tt[n]or 0)+1
 end
-print(sum)
 
---for i=6,1,-1 do
---  for i,v in ipairs(m[i]) do
---    io.write(v.." ")
---  end
---  print""
---end
+local function run(l)
+  local t = tt
+  for i = 1, l do
+    local newt = {}
+    for v, n in pairs(t) do
+      local a,b
+      if #v % 2 == 0 then
+        a=v:sub(1,#v/2)
+        b= tostring(tonumber(v:sub(#v/2+1)))
+      elseif v == "0" then
+        a="1"
+      else
+        a = tostring(tonumber(v)*2024)
+      end
+      if a then newt[a]=(newt[a] or 0ULL)+n end
+      if b then newt[b]=(newt[b] or 0ULL)+n end
+    end
+    t=newt
+  end
+  local sum = 0
+  for k, v in pairs(t) do
+    sum=sum+v
+  end
+  return sum
+end
+
+print(tostring(run(25)):sub(1,-4))
+print(tostring(run(75)):sub(1,-4))
