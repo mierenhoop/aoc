@@ -45,7 +45,7 @@ end
 
 local sum1 = 0
 local sum = 0
-for ax,ay,bx,by,cx,cy in io.read"*a":gmatch"Button A: X%+(%d+), Y%+(%d+)\nButton B: X%+(%d+), Y%+(%d+)\nPrize: X=(%d+), Y=(%d+)" do
+for ax,ay,bx,by,cx,cy in io.open"day13.txt":read"*a":gmatch"Button A: X%+(%d+), Y%+(%d+)\nButton B: X%+(%d+), Y%+(%d+)\nPrize: X=(%d+), Y=(%d+)" do
   ax,ay,bx,by,cx,cy=tonumber(ax),tonumber(ay),tonumber(bx),tonumber(by),tonumber(cx),tonumber(cy)
   sum1 = sum1 + getopts(ax,ay,bx,by,cx,cy)
   cx=cx+10000000000000

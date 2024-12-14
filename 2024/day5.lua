@@ -32,9 +32,9 @@ for line in second:gmatch"[^\n]+" do
     end
   end
   if isok then
-    sum = sum + (tt[#tt//2+1])
+    sum = sum + (tt[math.floor(#tt/2)+1])
   else
-    sum2 = sum2 + (tt[#tt//2+1])
+    sum2 = sum2 + (tt[math.floor(#tt/2)+1])
 
   end
 end
